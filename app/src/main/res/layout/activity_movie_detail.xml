@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_movie_detail"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#FAFAFA"
+android:orientation="vertical"
+tools:context="com.example.amgad.imovies.MovieDetail">
+
+    <TextView
+        android:id="@+id/movie_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#212121"
+        android:hint="text"
+        android:paddingTop="15dp"
+        android:textAlignment="center"
+        android:textColor="#FAFAFA"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="insideOverlay"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/movie_image"
+                    android:layout_width="185dp"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/ReleaseDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="80dp"
+                    android:layout_toRightOf="@+id/movie_image"
+                    android:text=" > Release Date : "
+                    android:textColor="#212121"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/movie_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ReleaseDate"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/movie_image"
+                    android:hint="Movie Year"
+                    android:textColor="#212121" />
+
+                <TextView
+                    android:id="@+id/MovieRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/movie_year"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/movie_image"
+                    android:text=" > Movie Rate : "
+                    android:textColor="#212121"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/rate"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/MovieRate"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/movie_image"
+                    android:hint="Rate"
+                    android:textColor="#212121" />
+                <ImageButton
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/Fav_button"
+                    android:layout_below="@+id/rate"
+                    android:layout_toRightOf="@+id/movie_image"
+                    android:layout_marginLeft="60dp"
+                    android:background="#FAFAFA"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text=" > Description : "
+                android:textColor="#212121"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/movie_detail"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:hint="TextView"
+                android:paddingTop="5dp"
+                android:textColor="#212121" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Imovies</string>
+    <string name="title_activity_movie_detail">MovieDetail</string>
+    <string name="title_activity_deatail">ActivityDeatail</string>
+    <string name="action_share">Share</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="mostPopular">Most Popular</string>
+</resources>
