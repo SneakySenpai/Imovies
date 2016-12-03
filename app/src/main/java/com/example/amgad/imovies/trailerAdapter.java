@@ -16,8 +16,6 @@ import java.util.List;
 public class trailerAdapter extends RecyclerView.Adapter<trailerAdapter.trailerAdapterViewHolder> {
 
 
-
-
     private LayoutInflater mInflater;
     private Context mContext;
 
@@ -34,7 +32,6 @@ public class trailerAdapterViewHolder extends RecyclerView.ViewHolder{
         listView = (ListView) itemView.findViewById(R.id.trailer);
     }
 }
-
 
     @Override
     public trailerAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
