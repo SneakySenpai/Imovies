@@ -15,7 +15,6 @@ import java.util.ArrayList;
  */
 
 public class trailerAdapter extends ArrayAdapter<trailerObject> {
-
     ArrayList<trailerObject> objects;
 
     private static class ViewHolder {
@@ -42,12 +41,11 @@ public class trailerAdapter extends ArrayAdapter<trailerObject> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
         trailerObject item = getItem(position);
         if (item != null) {
             // My layout has only one TextView
             // do whatever you want with your string and long
-            viewHolder.itemView.setText( item.getTitle());
+            viewHolder.itemView.setText(item.getTitle());
         }
 
         return convertView;

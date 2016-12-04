@@ -1,6 +1,7 @@
 package com.example.amgad.imovies;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -45,6 +47,7 @@ public class MovieDetail extends AppCompatActivity {
     ListView List_View;
     ListView List_View2;
     int Movie_ID;
+    String Movie_Key;
     private ShareActionProvider mShareActionProvider;
     ImageButton favButton;
     private Realm realm;
@@ -97,6 +100,15 @@ public class MovieDetail extends AppCompatActivity {
                 }
             }
         });
+
+        List_View.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + Movie_Key));
+                startActivity(intent);
+
+            }
+        });
     }
 
     @Override
@@ -128,8 +140,12 @@ public class MovieDetail extends AppCompatActivity {
         return shareIntent;
     }
 
+
     private class trailerLoading extends AsyncTask {
         ArrayList<trailerObject> trailerObjectArrayList;
+
+
+
 
         @Override
         protected void onPostExecute(Object o) {
@@ -205,6 +221,8 @@ public class MovieDetail extends AppCompatActivity {
             }
             return objects[0];
         }
+
+
     }
 
 
