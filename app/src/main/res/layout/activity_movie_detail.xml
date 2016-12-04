@@ -6,8 +6,7 @@ android:id="@+id/activity_movie_detail"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="#FAFAFA"
-android:orientation="vertical"
-tools:context="com.example.amgad.imovies.MovieDetail">
+android:orientation="vertical">
 
     <TextView
         android:id="@+id/movie_name"
@@ -54,7 +53,7 @@ tools:context="com.example.amgad.imovies.MovieDetail">
                     android:layout_marginTop="80dp"
                     android:layout_toRightOf="@+id/movie_image"
                     android:text=" > Release Date : "
-                    android:textColor="#212121"
+                    android:textColor="#F9A825"
                     android:textStyle="bold" />
 
                 <TextView
@@ -77,7 +76,7 @@ tools:context="com.example.amgad.imovies.MovieDetail">
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/movie_image"
                     android:text=" > Movie Rate : "
-                    android:textColor="#212121"
+                    android:textColor="#F9A825"
                     android:textStyle="bold" />
 
                 <TextView
@@ -108,7 +107,7 @@ tools:context="com.example.amgad.imovies.MovieDetail">
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:text=" > Description : "
-                android:textColor="#212121"
+                android:textColor="#F9A825"
                 android:textSize="20dp" />
 
             <TextView
@@ -125,7 +124,7 @@ tools:context="com.example.amgad.imovies.MovieDetail">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="> Trailers :"
-                android:textColor="#212121"
+                android:textColor="#F9A825"
                 android:paddingTop="5dp"
                 android:textSize="20dp"
                 android:layout_marginLeft="20dp"
@@ -140,7 +139,7 @@ tools:context="com.example.amgad.imovies.MovieDetail">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="> Reviews :"
-                android:textColor="#212121"
+                android:textColor="#F9A825"
                 android:paddingTop="5dp"
                 android:textSize="20dp"
                 android:layout_marginLeft="20dp"

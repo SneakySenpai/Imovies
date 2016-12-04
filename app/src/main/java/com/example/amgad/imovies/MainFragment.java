@@ -1,9 +1,8 @@
 package com.example.amgad.imovies;
 
-import android.content.Context;
+import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +35,7 @@ import io.realm.RealmResults;
 public class MainFragment extends Fragment {
 
     RecyclerView recyclerView;
-    Context mContext;
+    MainFragment mContext;
     movieObject movieObject;
     public static final String EXTRA_MOVIE_ID = "Movie_ID";
     private Realm realm;
@@ -44,12 +43,12 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        mContext = getContext();
+        mContext = this;
         setHasOptionsMenu(true);
         FetchMovieData fetchMovieData = new FetchMovieData();
         fetchMovieData.execute("popular");
         recyclerView = (RecyclerView) rootView.findViewById(R.id.gridView);
-        Realm.init(getContext());
+        Realm.init(getActivity());
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
 
         // Clear the realm from last time
@@ -84,7 +83,7 @@ public class MainFragment extends Fragment {
                     movies = realm.where(movieObject.class).equalTo("type", 1).findAll();
                 }
                 movieAdapter movieAdapter = new movieAdapter(mContext, movies);
-                RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+                RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
                 recyclerView.setLayoutManager(gridLayoutManager);
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 recyclerView.setAdapter(movieAdapter);
@@ -173,7 +172,7 @@ public class MainFragment extends Fragment {
                 RealmResults<movieObject> movies;
                 movies = realm.where(movieObject.class).equalTo("isFav", true).findAll();
                 movieAdapter movieAdapter = new movieAdapter(mContext, movies);
-                RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+                RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
                 recyclerView.setLayoutManager(gridLayoutManager);
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 recyclerView.setAdapter(movieAdapter);

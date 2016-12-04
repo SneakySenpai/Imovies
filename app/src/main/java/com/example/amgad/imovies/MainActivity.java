@@ -10,6 +10,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (findViewById(R.id.land_main) == null) {
+            getFragmentManager().beginTransaction().replace(R.id.activity_main, new MainFragment()).commit();
+        } else {
+            getFragmentManager().beginTransaction().replace(R.id.activity_main, new DetailFragment()).commit();
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

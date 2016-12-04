@@ -1,18 +1,19 @@
 package com.example.amgad.imovies;
 
+
+import android.app.Fragment;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -34,11 +35,13 @@ import java.util.ArrayList;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-import static com.example.amgad.imovies.MainFragment.EXTRA_MOVIE_ID;
 
-public class MovieDetail extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class DetailFragment extends Fragment {
 
-    private static final String LOG_TAG = MovieDetail.class.getSimpleName();
+    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
     TextView Movie_Name;
     TextView Movie_Year;
     TextView Movie_OverView;
@@ -52,69 +55,83 @@ public class MovieDetail extends AppCompatActivity {
     ImageButton favButton;
     private Realm realm;
 
+    public DetailFragment() {
+        Movie_ID = 0;
+    }
+
+    public DetailFragment(int id) {
+        // Required empty public constructor
+        Movie_ID = id;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_detail);
-        Movie_Name = (TextView) findViewById(R.id.movie_name);
-        Movie_Year = (TextView) findViewById(R.id.movie_year);
-        Movie_OverView = (TextView) findViewById(R.id.movie_detail);
-        Movie_Image = (ImageView) findViewById(R.id.movie_image);
-        Movie_Rate = (TextView) findViewById(R.id.rate);
-        favButton = (ImageButton) findViewById(R.id.Fav_button);
-        List_View = (ListView) findViewById(R.id.trailer_list);
-        List_View2 = (ListView) findViewById(R.id.review_list);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.activity_movie_detail, container, false);
+        Movie_Name = (TextView) v.findViewById(R.id.movie_name);
+        Movie_Year = (TextView) v.findViewById(R.id.movie_year);
+        Movie_OverView = (TextView) v.findViewById(R.id.movie_detail);
+        Movie_Image = (ImageView) v.findViewById(R.id.movie_image);
+        Movie_Rate = (TextView) v.findViewById(R.id.rate);
+        favButton = (ImageButton) v.findViewById(R.id.Fav_button);
+        List_View = (ListView) v.findViewById(R.id.trailer_list);
+        List_View2 = (ListView) v.findViewById(R.id.review_list);
 
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
         realm = Realm.getInstance(realmConfiguration);
 
-        Intent intent = getIntent();
-        Movie_ID = intent.getIntExtra(EXTRA_MOVIE_ID, 0);
-        final movieObject movie = realm.where(movieObject.class).equalTo("id", Movie_ID).findFirst();
-        Movie_Name.setText(movie.getTitle());
-        Movie_Year.setText(movie.getYear());
-        Movie_OverView.setText(movie.getOverview());
-        Picasso.with(getBaseContext()).load("http://image.tmdb.org/t/p/w185/" + movie.getImage()).into(Movie_Image);
-        Movie_Rate.setText(String.valueOf(movie.getVoteRange()));
+//        Intent intent = getIntent();
+//        Movie_ID = intent.getIntExtra(EXTRA_MOVIE_ID, 0);
+        if (Movie_ID != 0) {
+            final movieObject movie = realm.where(movieObject.class).equalTo("id", Movie_ID).findFirst();
+            Movie_Name.setText(movie.getTitle());
+            Movie_Year.setText(movie.getYear());
+            Movie_OverView.setText(movie.getOverview());
+            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185/" + movie.getImage()).into(Movie_Image);
+            Movie_Rate.setText(String.valueOf(movie.getVoteRange()));
 
-        if (movie.isFav()) {
-            favButton.setImageResource(R.drawable.like_48px);
-        } else {
-            favButton.setImageResource(R.drawable.unlike_50px);
-        }
+            if (movie.isFav()) {
+                favButton.setImageResource(R.drawable.like_48px);
+            } else {
+                favButton.setImageResource(R.drawable.unlike_50px);
+            }
 
-        new trailerLoading().execute("trailer");
-        new reviewLoading().execute("review");
+            new trailerLoading().execute("trailer");
+            new reviewLoading().execute("review");
 
-        favButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                realm.beginTransaction();
-                movie.setFav((!movie.isFav()));
-                realm.copyToRealmOrUpdate(movie);
-                realm.commitTransaction();
-                if (movie.isFav()) {
-                    favButton.setImageResource(R.drawable.like_48px);
-                } else {
-                    favButton.setImageResource(R.drawable.unlike_50px);
+            favButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    realm.beginTransaction();
+                    movie.setFav((!movie.isFav()));
+                    realm.copyToRealmOrUpdate(movie);
+                    realm.commitTransaction();
+                    if (movie.isFav()) {
+                        favButton.setImageResource(R.drawable.like_48px);
+                    } else {
+                        favButton.setImageResource(R.drawable.unlike_50px);
+                    }
                 }
-            }
-        });
+            });
 
-        List_View.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + Movie_Key));
-                startActivity(intent);
-
-            }
-        });
+            return v;
+        } else {
+            return inflater.inflate(R.layout.empty_layout, container, false);
+        }
     }
 
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate menu resource file.
-        getMenuInflater().inflate(R.menu.detail_fragment, menu);
+        inflater.inflate(R.menu.detail_fragment, menu);
 
         // Locate MenuItem with ShareActionProvider
         MenuItem item = menu.findItem(R.id.action_share);
@@ -128,7 +145,6 @@ public class MovieDetail extends AppCompatActivity {
             Log.d(LOG_TAG, "Share Action Provider is null?");
         }
         // Return true to display menu
-        return true;
     }
 
     private Intent setShareIntent() {
@@ -140,23 +156,20 @@ public class MovieDetail extends AppCompatActivity {
         return shareIntent;
     }
 
-
-    private class trailerLoading extends AsyncTask {
+    private class trailerLoading extends AsyncTask<String, Void, String> {
         ArrayList<trailerObject> trailerObjectArrayList;
 
 
-
-
         @Override
-        protected void onPostExecute(Object o) {
+        protected void onPostExecute(String o) {
             if (null != o) {
                 if (o == "trailer") {
-                    trailerAdapter trailerAdapter = new trailerAdapter(getBaseContext(), R.layout.trailer_item, R.id.trailer_title, trailerObjectArrayList);
+                    trailerAdapter trailerAdapter = new trailerAdapter(getActivity(), R.layout.trailer_item, R.id.trailer_title, trailerObjectArrayList);
                     List_View.setAdapter(trailerAdapter);
                     setListViewHeightBasedOnChildren(List_View);
 
                 } else {
-                    trailerAdapter trailerAdapter = new trailerAdapter(getBaseContext(), R.layout.trailer_item, R.id.trailer_title, trailerObjectArrayList);
+                    trailerAdapter trailerAdapter = new trailerAdapter(getActivity(), R.layout.trailer_item, R.id.trailer_title, trailerObjectArrayList);
                     List_View.setAdapter(trailerAdapter);
                     setListViewHeightBasedOnChildren(List_View);
 
@@ -166,14 +179,14 @@ public class MovieDetail extends AppCompatActivity {
         }
 
         @Override
-        protected Object doInBackground(Object[] objects) {
+        protected String doInBackground(String... strings) {
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
             String movieJsonStr = null;
 
             try {
                 URL url;
-                if (objects[0].equals("trailer")) {
+                if (strings[0].equals("trailer")) {
                     url = new URL("http://api.themoviedb.org/3/movie/" + Movie_ID + "/videos?api_key=19ad67fedf195474947ef34e79e3b14c");
                 } else {
                     url = new URL("http://api.themoviedb.org/3/movie/" + Movie_ID + "reviews?api_key=19ad67fedf195474947ef34e79e3b14c");
@@ -197,7 +210,7 @@ public class MovieDetail extends AppCompatActivity {
                 movieJsonStr = buffer.toString();
                 Log.e("forecastJsonStr", movieJsonStr);
 
-                if (objects[0].equals("trailer")) {
+                if (strings[0].equals("trailer")) {
                     trailerObjectArrayList = MovieData.getTrailers(movieJsonStr, 0);
                 } else {
                     trailerObjectArrayList = MovieData.getTrailers(movieJsonStr, 1);
@@ -219,10 +232,8 @@ public class MovieDetail extends AppCompatActivity {
                     }
                 }
             }
-            return objects[0];
+            return strings[0];
         }
-
-
     }
 
 
@@ -233,14 +244,14 @@ public class MovieDetail extends AppCompatActivity {
         protected void onPostExecute(Object o) {
             if (null != o) {
                 if (o == "review") {
-                    reviewAdapter reviewAdapter = new reviewAdapter(getBaseContext(), R.layout.review_item, R.id.review_author, reviewObjectArrayList);
-                    reviewAdapter reviewAdapter1 = new reviewAdapter(getBaseContext(), R.layout.review_item, R.id.review_content, reviewObjectArrayList);
+                    reviewAdapter reviewAdapter = new reviewAdapter(getActivity(), R.layout.review_item, R.id.review_author, reviewObjectArrayList);
+                    reviewAdapter reviewAdapter1 = new reviewAdapter(getActivity(), R.layout.review_item, R.id.review_content, reviewObjectArrayList);
                     List_View2.setAdapter(reviewAdapter);
                     List_View2.setAdapter(reviewAdapter1);
                     setListViewHeightBasedOnChildren(List_View2);
                 } else {
-                    reviewAdapter reviewAdapter = new reviewAdapter(getBaseContext(), R.layout.review_item, R.id.review_author, reviewObjectArrayList);
-                    reviewAdapter reviewAdapter1 = new reviewAdapter(getBaseContext(), R.layout.review_item, R.id.review_content, reviewObjectArrayList);
+                    reviewAdapter reviewAdapter = new reviewAdapter(getActivity(), R.layout.review_item, R.id.review_author, reviewObjectArrayList);
+                    reviewAdapter reviewAdapter1 = new reviewAdapter(getActivity(), R.layout.review_item, R.id.review_content, reviewObjectArrayList);
                     List_View2.setAdapter(reviewAdapter1);
                     List_View2.setAdapter(reviewAdapter);
                     setListViewHeightBasedOnChildren(List_View2);
@@ -328,5 +339,4 @@ public class MovieDetail extends AppCompatActivity {
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
     }
-
 }

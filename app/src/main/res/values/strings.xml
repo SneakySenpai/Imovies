@@ -6,4 +6,8 @@
     <string name="top_rated">Top Rated</string>
     <string name="mostPopular">Most Popular</string>
     <string name="youtube_form_url">http://www.youtube.com/watch?v=%1$s</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_layout_message">Sorry You Have To Choose Movie First, Thanks!!</string>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/review_author"
-    android:textColor="#F9A825"
+    android:textColor="#212121"
     android:layout_marginLeft="20dp"
     android:layout_marginTop="10dp"
     android:textSize="18dp"

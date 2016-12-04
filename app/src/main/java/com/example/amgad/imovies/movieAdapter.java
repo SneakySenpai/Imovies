@@ -1,7 +1,7 @@
 package com.example.amgad.imovies;
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +12,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.example.amgad.imovies.MainFragment.EXTRA_MOVIE_ID;
-
 /**
  * Created by Amgad on 09-Oct-16.
  */
@@ -21,13 +19,11 @@ import static com.example.amgad.imovies.MainFragment.EXTRA_MOVIE_ID;
 class movieAdapter extends RecyclerView.Adapter<movieAdapter.movieAdapterViewHolder> {
     private List<movieObject> movieObjectArrayList;
 
-    private LayoutInflater mInflater;
-    private Context mContext;
+    private MainFragment mContext;
 
-    movieAdapter(Context context, List<movieObject> results) {
+    movieAdapter(MainFragment context, List<movieObject> results) {
         movieObjectArrayList = results;
         mContext = context;
-        mInflater = LayoutInflater.from(context);
     }
 
     public class movieAdapterViewHolder extends RecyclerView.ViewHolder {
@@ -60,15 +56,21 @@ class movieAdapter extends RecyclerView.Adapter<movieAdapter.movieAdapterViewHol
     public void onBindViewHolder(movieAdapterViewHolder holder, final int position) {
         movieObject movie = movieObjectArrayList.get(position);
 
-        Picasso.with(mContext).load("http://image.tmdb.org/t/p/w185/" + movie.getImage()).into(holder.imageview);
+        Picasso.with(mContext.getActivity()).load("http://image.tmdb.org/t/p/w185/" + movie.getImage()).into(holder.imageview);
 
         holder.imageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, MovieDetail.class);
+//                Intent intent = new Intent(mContext, MovieDetail.class);
                 movieObject movieObject = movieObjectArrayList.get(position);
-                intent.putExtra(EXTRA_MOVIE_ID, movieObject.getId());
-                mContext.startActivity(intent);
+//                intent.putExtra(EXTRA_MOVIE_ID, movieObject.getId());
+//                mContext.startActivity(intent);
+                DetailFragment fragment2 = new DetailFragment(movieObject.getId());
+                FragmentManager fragmentManager = mContext.getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.activity_main, fragment2);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
     }
@@ -81,5 +83,4 @@ class movieAdapter extends RecyclerView.Adapter<movieAdapter.movieAdapterViewHol
     public int getItemCount() {
         return movieObjectArrayList.size();
     }
-
 }

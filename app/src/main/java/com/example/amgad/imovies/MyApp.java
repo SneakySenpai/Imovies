@@ -25,8 +25,8 @@ public class MyApp extends Application {
         Picasso.Builder builder = new Picasso.Builder(getBaseContext());
         builder.downloader(new OkHttpDownloader(getBaseContext(), Integer.MAX_VALUE));
         Picasso built = builder.build();
-        built.setIndicatorsEnabled(true);
-        built.setLoggingEnabled(true);
+//        built.setIndicatorsEnabled(true);
+//        built.setLoggingEnabled(true);
         Picasso.setSingletonInstance(built);
     }
 }

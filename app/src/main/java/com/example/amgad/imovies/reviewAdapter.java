@@ -46,10 +46,9 @@ public class reviewAdapter extends ArrayAdapter<reviewObject> {
         reviewObject item = getItem(position);
         if (item != null) {
 
-            viewHolder.Author.setText( item.getAuthor());
+            viewHolder.Author.setText(item.getAuthor());
             viewHolder.content.setText(item.getContent());
         }
-
         return convertView;
     }
 }
