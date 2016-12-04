@@ -45,8 +45,7 @@ public class reviewAdapter extends ArrayAdapter<reviewObject> {
 
         reviewObject item = getItem(position);
         if (item != null) {
-            // My layout has only one TextView
-            // do whatever you want with your string and long
+
             viewHolder.itemView.setText( item.getAuthor());
             viewHolder.itemView.setText(item.getContent());
         }
