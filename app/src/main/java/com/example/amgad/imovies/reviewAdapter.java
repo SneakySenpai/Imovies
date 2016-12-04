@@ -19,7 +19,7 @@ public class reviewAdapter extends ArrayAdapter<reviewObject> {
     ArrayList<reviewObject> objects;
 
     private static class ViewHolder {
-        private TextView itemView;
+        private TextView Author, content;
     }
 
     public reviewAdapter(Context context, int resource, int textViewResourceId, ArrayList<reviewObject> objects) {
@@ -36,8 +36,8 @@ public class reviewAdapter extends ArrayAdapter<reviewObject> {
             convertView = LayoutInflater.from(this.getContext())
                     .inflate(R.layout.review_item, parent, false);
 
-            viewHolder.itemView = (TextView) convertView.findViewById(R.id.review_author);
-            viewHolder.itemView = (TextView) convertView.findViewById(R.id.review_content);
+            viewHolder.Author = (TextView) convertView.findViewById(R.id.review_author);
+            viewHolder.content = (TextView) convertView.findViewById(R.id.review_content);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -46,8 +46,8 @@ public class reviewAdapter extends ArrayAdapter<reviewObject> {
         reviewObject item = getItem(position);
         if (item != null) {
 
-            viewHolder.itemView.setText( item.getAuthor());
-            viewHolder.itemView.setText(item.getContent());
+            viewHolder.Author.setText( item.getAuthor());
+            viewHolder.content.setText(item.getContent());
         }
 
         return convertView;
