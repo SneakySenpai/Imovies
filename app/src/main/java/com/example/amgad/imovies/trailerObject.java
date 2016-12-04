@@ -8,6 +8,14 @@ import io.realm.RealmObject;
 
 public class trailerObject extends RealmObject {
 
+    private String id;
+    private String key;
+    private String name;
+    private String site;
+    private int size;
+    private String type;
+    private String title;
+
     public String getId() {
         return id;
     }
@@ -63,13 +71,5 @@ public class trailerObject extends RealmObject {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    private String id;
-    private String key;
-    private String name;
-    private String site;
-    private int size;
-    private String type;
-    private String title;
 
 }

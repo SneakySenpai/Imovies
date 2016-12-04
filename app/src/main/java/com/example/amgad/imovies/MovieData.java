@@ -51,4 +51,42 @@ public class MovieData {
         }
         return moviesArray;
     }
+
+    public static ArrayList<trailerObject> getTrailers(String nameJsonStr, int trailerType) throws JSONException {
+        ArrayList<trailerObject> trailersArray = new ArrayList<>();
+        JSONObject page = new JSONObject(nameJsonStr);
+        JSONArray results = page.getJSONArray("results");
+        for (int i = 0; i < results.length(); i++) {
+            JSONObject trailerJason = results.getJSONObject(i);
+            String title = trailerJason.getString("name");
+            String id = trailerJason.getString("id");
+            String key =trailerJason.getString("key");
+            String type = trailerJason.getString("type");
+            trailerObject trailer = new trailerObject();
+            trailer.setTitle(title);
+            trailer.setId(id);
+            trailer.setKey(key);
+            trailer.setType(type);
+            trailersArray.add(trailer);
+        }
+        return trailersArray;
+    }
+
+    public static ArrayList<reviewObject> getReview(String nameJsonStr, int reviewType) throws JSONException {
+        ArrayList<reviewObject> reviewsArray = new ArrayList<>();
+        JSONObject page = new JSONObject(nameJsonStr);
+        JSONArray results = page.getJSONArray("results");
+        for (int i = 0; i < results.length(); i++) {
+            JSONObject reviewJason = results.getJSONObject(i);
+            String id = reviewJason.getString("id");
+            String author = reviewJason.getString("author");
+            String content = reviewJason.getString("content");
+            reviewObject review = new reviewObject();
+            review.setAuthor(author);
+            review.setId(id);
+            review.setContent(content);
+            reviewsArray.add(review);
+        }
+        return reviewsArray;
+    }
 }

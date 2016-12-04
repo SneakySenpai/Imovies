@@ -121,11 +121,36 @@ tools:context="com.example.amgad.imovies.MovieDetail">
                 android:hint="TextView"
                 android:paddingTop="5dp"
                 android:textColor="#212121" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="> Trailers :"
+                android:textColor="#212121"
+                android:paddingTop="5dp"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"/>
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/trailer">
+                android:layout_height="wrap_content"
+                android:id="@+id/trailer_list">
             </ListView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="> Reviews :"
+                android:textColor="#212121"
+                android:paddingTop="5dp"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"/>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/review_list"></ListView>
+
 
 
         </LinearLayout>

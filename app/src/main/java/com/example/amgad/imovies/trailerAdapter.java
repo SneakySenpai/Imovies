@@ -1,53 +1,55 @@
 package com.example.amgad.imovies;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Amgad on 03-Dec-16.
  */
 
-public class trailerAdapter extends RecyclerView.Adapter<trailerAdapter.trailerAdapterViewHolder> {
+public class trailerAdapter extends ArrayAdapter<trailerObject> {
 
+    ArrayList<trailerObject> objects;
 
-    private LayoutInflater mInflater;
-    private Context mContext;
-
-    trailerAdapter(Context context, List<movieObject> results) {
-        mContext = context;
-        mInflater = LayoutInflater.from(context);
+    private static class ViewHolder {
+        private TextView itemView;
     }
-public class trailerAdapterViewHolder extends RecyclerView.ViewHolder{
 
-    ListView listView;
-
-    public trailerAdapterViewHolder(View itemView) {
-        super(itemView);
-        listView = (ListView) itemView.findViewById(R.id.trailer);
+    public trailerAdapter(Context context, int resource, int textViewResourceId, ArrayList<trailerObject> objects) {
+        super(context, resource, textViewResourceId, objects);
+        this.objects = objects;
     }
-}
 
+    @NonNull
     @Override
-    public trailerAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-View itemView = LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.trailer_item, parent, false);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        super.getView(position, convertView, parent);
+        ViewHolder viewHolder = new ViewHolder();
+        if (convertView == null) {
+            convertView = LayoutInflater.from(this.getContext())
+                    .inflate(R.layout.trailer_item, parent, false);
 
-        return new trailerAdapterViewHolder(itemView);
-    }
+            viewHolder.itemView = (TextView) convertView.findViewById(R.id.trailer_title);
 
-    @Override
-    public void onBindViewHolder(trailerAdapterViewHolder holder, int position) {
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
-    }
+        trailerObject item = getItem(position);
+        if (item != null) {
+            // My layout has only one TextView
+            // do whatever you want with your string and long
+            viewHolder.itemView.setText( item.getTitle());
+        }
 
-    @Override
-    public int getItemCount() {
-        return 0;
+        return convertView;
     }
 }
