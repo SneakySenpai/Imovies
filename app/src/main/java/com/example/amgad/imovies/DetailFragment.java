@@ -245,14 +245,11 @@ public class DetailFragment extends Fragment {
             if (null != o) {
                 if (o == "review") {
                     reviewAdapter reviewAdapter = new reviewAdapter(getActivity(), R.layout.review_item, R.id.review_author, reviewObjectArrayList);
-                    reviewAdapter reviewAdapter1 = new reviewAdapter(getActivity(), R.layout.review_item, R.id.review_content, reviewObjectArrayList);
                     List_View2.setAdapter(reviewAdapter);
-                    List_View2.setAdapter(reviewAdapter1);
                     setListViewHeightBasedOnChildren(List_View2);
                 } else {
                     reviewAdapter reviewAdapter = new reviewAdapter(getActivity(), R.layout.review_item, R.id.review_author, reviewObjectArrayList);
-                    reviewAdapter reviewAdapter1 = new reviewAdapter(getActivity(), R.layout.review_item, R.id.review_content, reviewObjectArrayList);
-                    List_View2.setAdapter(reviewAdapter1);
+
                     List_View2.setAdapter(reviewAdapter);
                     setListViewHeightBasedOnChildren(List_View2);
 
